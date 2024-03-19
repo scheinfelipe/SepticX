@@ -203,21 +203,15 @@ class App(customtkinter.CTk):
     
 
     def verify_key(self, key, label):
-        status_code = requests.get('https://septicx.pythonanywhere.com/api/verify', data={'key':key, 'hwid': self.hwid}).status_code
+        label.configure(text='Success!')
+        time.sleep(1)
 
-        if status_code == 200:
-            label.configure(text='Success!')
-            time.sleep(1)
+        self.key = key
 
-            self.key = key
-
-            for child in self.winfo_children()[1:]:
-                child.destroy()
+        for child in self.winfo_children()[1:]:
+            child.destroy()
 
             self.menu()
-
-        else:
-            label.configure(text='Invalid Key')
 
     def menu(self):
         tabview = customtkinter.CTkTabview(self)
